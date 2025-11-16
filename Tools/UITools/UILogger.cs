@@ -1,5 +1,4 @@
-﻿// (File: Tools/UITools/UILogger.cs)
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
@@ -34,66 +33,98 @@ namespace Tools.UITools
             _logCustomFont = logFont;
             _sessionLogFilePath = sessionLogFilePath;
             _logPlaceholderText = logPlaceholderText;
-
-            // FIXED: Removed call to ShowPlaceholder() from constructor.
-            // It will now be called by MainForm *after* all fonts are applied.
         }
 
         // --- Public API Methods ---
 
         /// <summary>
-        /// Writes a time-stamped message to the RichTextBox.
+        /// Writes a time-stamped message to the RichTextBox, handling cross-thread calls.
         /// </summary>
+        /// <param name="message">The main text message to be logged.</param>
+        /// <param name="color">Optional color for the message text.</param>
+        /// <param name="footer">Optional second line of text (footer) for the log entry.</param>
         public void Log(string message, Color? color = null, string footer = null)
         {
+            // 1. Cross-Thread Access Check (C# WinForms/WPF Standard)
+            // If the method is called from a thread other than the UI thread,
+            // it invokes itself on the correct thread and exits the current call.
             if (_logControl.InvokeRequired)
             {
                 _logControl.Invoke(new Action(() => Log(message, color, footer)));
                 return;
             }
 
+            // 2. Placeholder Handling
+            // If a temporary placeholder text is active in the log box, clear it.
             if (_isLogPlaceholderActive)
             {
                 ClearPlaceholder();
             }
 
+            // 3. Preparation: Timestamps and Separators
             string timestamp = DateTime.Now.ToString("HH:mm:ss");
             string timeStampText = $"[{timestamp}]";
             string spacer = " ";
+
+            // Check if the call is intended to be a simple separator line (empty message and empty footer).
             bool isSeparator = string.IsNullOrWhiteSpace(message) && string.IsNullOrEmpty(footer);
+
+            // Write the raw content to a session file/storage (if applicable, this method is external).
             WriteToSessionLog(message, timeStampText, spacer, footer, isSeparator);
+
+            // 4. Formatting Setup
+            // Ensure the new entry starts on a new line, but only if the log box is not empty.
             if (_logControl.TextLength > 0)
             {
                 _logControl.AppendText(Environment.NewLine);
             }
+
+            // Set cursor position to the end of the text before appending.
             _logControl.SelectionStart = _logControl.TextLength;
             _logControl.SelectionLength = 0;
+
+            // 5. Separator Logic (If only a timestamp/separator is needed)
             if (isSeparator)
             {
                 _logControl.SelectionFont = _logCustomFont;
                 _logControl.SelectionColor = Color.Black;
-                _logControl.AppendText(timeStampText);
-                FinalizeLogUpdate();
+                _logControl.AppendText(timeStampText); // Only append the timestamp
+                FinalizeLogUpdate(); // Scroll to caret and refresh/update UI
                 return;
             }
+
+            // 6. Main Log Entry Rendering
             Color messageColor = color ?? _logControl.ForeColor;
             Color timeStampColor = Color.Black;
+
+            // A. Render Timestamp (e.g., [10:00:00] - always black)
             _logControl.SelectionFont = _logCustomFont;
             _logControl.SelectionColor = timeStampColor;
             _logControl.AppendText(timeStampText);
+
+            // B. Render Main Message (e.g., [10:00:00] Log Message)
             _logControl.SelectionFont = _logCustomFont;
             _logControl.SelectionColor = messageColor;
             _logControl.AppendText(spacer + message);
+
+            // 7. Footer Rendering (If optional footer text is provided)
             if (!string.IsNullOrEmpty(footer))
             {
-                _logControl.AppendText(Environment.NewLine);
+                _logControl.AppendText(Environment.NewLine); // Start new line for the footer
+
+                // C. Re-render Timestamp for the footer line (e.g., [10:00:00])
                 _logControl.SelectionFont = _logCustomFont;
                 _logControl.SelectionColor = timeStampColor;
                 _logControl.AppendText(timeStampText);
+
+                // D. Render Footer text (e.g., [10:00:00] Secondary/Details Text)
                 _logControl.SelectionFont = _logCustomFont;
                 _logControl.SelectionColor = Color.Black;
                 _logControl.AppendText(spacer + footer);
             }
+
+            // 8. Finalize
+            // Scroll the RichTextBox to the bottom/caret position and apply changes.
             FinalizeLogUpdate();
         }
 
@@ -171,16 +202,28 @@ namespace Tools.UITools
             {
                 saveFileDialog.Filter = "Text files (*.txt)|*.txt|All files (*.*)|*.*";
                 saveFileDialog.FileName = $"log_{DateTime.Now:yyyyMMdd_HHmmss}.txt";
+                
                 if (saveFileDialog.ShowDialog() == DialogResult.OK)
                 {
                     try
                     {
                         File.WriteAllText(saveFileDialog.FileName, contentToSave);
-                        MessageBox.Show($"Log successfully saved...", "Save Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        
+                        MessageBox.Show(
+                            $"Log successfully saved...", 
+                            "Save Complete", 
+                            MessageBoxButtons.OK, 
+                            MessageBoxIcon.Information
+                        );
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show($"Failed to save log: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show(
+                            $"Failed to save log: {ex.Message}", 
+                            "Error", 
+                            MessageBoxButtons.OK, 
+                            MessageBoxIcon.Error
+                        );
                     }
                 }
             }
@@ -243,6 +286,7 @@ namespace Tools.UITools
         {
             _logControl.SelectionColor = _logControl.ForeColor;
             _logControl.SelectionFont = _logControl.Font;
+            
             NativeMethods.SendMessage(_logControl.Handle, NativeMethods.WM_VSCROLL, (IntPtr)NativeMethods.SB_BOTTOM, IntPtr.Zero);
         }
 
