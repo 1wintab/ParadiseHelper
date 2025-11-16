@@ -34,10 +34,10 @@ Before running Paradise Helper, make sure you have:
 
 ## 📦 Installation
 
-1. Go to **Releases** (update link later).  
-2. Download the latest `ParadiseHelper.zip`.  
-3. Extract it into a folder (e.g., `C:\ParadiseHelper`).  
-4. Right-click **`ParadiseHelper.exe` → Run as administrator**.
+1. Go to the **[Latest Release Page](https://github.com/1wintab/ParadiseHelper/releases/tag/v1.0.0)**.
+2. Download the installer archive: **`ParadiseHelper-1.0.0-x64-Setup.zip`** (from Assets).  
+3. Extract the ZIP file and run the installer (`.exe`).  
+4. Right-click **Paradise Helper.exe** → **Run as administrator** (after installation).
 
 ---
 
