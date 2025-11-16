@@ -1,0 +1,1 @@
+-low -nohltv -noubershader -softparticlesdefaultoff -limitvsconst -nojoy -nosound -low -allow_third_party_software +sensitivity 2.00 +m_pitch 0.022 +m_yaw 0.022 +mat_letterbox_aspect_goal 0 +mat_letterbox_aspect_threshold 0 +cl_showfps 0 +fps_max 64 +fps_max_ui 64 +cl_showfps 0 +volume 0 +cl_showloadout 1 +cl_dm_buyrandomweapons 0 -language english +exec custom_v1.cfg

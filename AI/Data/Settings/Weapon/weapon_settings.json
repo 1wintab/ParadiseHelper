@@ -1,0 +1,51 @@
+﻿{
+	"AK-47": {
+		"DelayAfterAimMs": 15,
+		"ActionCooldownMs": 170
+	},
+
+	"SG 553": {
+		"DelayAfterAimMs": 15,
+		"ActionCooldownMs": 165
+	},
+
+	"M4A4": {
+		"DelayAfterAimMs": 15,
+		"ActionCooldownMs": 160
+	},
+
+	"M4A1-S": {
+		"DelayAfterAimMs": 15,
+		"ActionCooldownMs": 160
+	},
+
+	"AWP": {
+		"DelayAfterAimMs": 50,
+		"ActionCooldownMs": 1470
+	},
+
+	"GLOCK-18": {
+		"DelayAfterAimMs": 15,
+		"ActionCooldownMs": 170
+	},
+
+	"USP-S": {
+		"DelayAfterAimMs": 15,
+		"ActionCooldownMs": 170
+	},
+
+	"P2000": {
+		"DelayAfterAimMs": 15,
+		"ActionCooldownMs": 170
+	},
+
+	"DESERT EAGLE": {
+		"DelayAfterAimMs": 50,
+		"ActionCooldownMs": 700
+	},
+
+	"Unknown": {
+		"DelayAfterAimMs": 15,
+		"ActionCooldownMs": 170
+	}
+}

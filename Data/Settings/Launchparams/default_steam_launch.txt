@@ -1,0 +1,1 @@
+-no-browser -silent -language english -applaunch 730 -no-cef-sandbox

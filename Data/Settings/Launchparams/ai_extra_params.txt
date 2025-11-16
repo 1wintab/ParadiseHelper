@@ -1,0 +1,5 @@
+{
+  "IsWindowed": true,
+  "ResolutionWidth": 1280,
+  "ResolutionHeight": 720
+}
