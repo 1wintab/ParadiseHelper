@@ -42,6 +42,8 @@ Before running Paradise Helper, make sure you have:
 3. Extract the ZIP file and run the installer (`.exe`).  
 4. Right-click **Paradise Helper.exe** → **Run as administrator** (after installation).
 
+![image-realease-v1.0.0](images/guide/installation/image-realease-v1.0.0.png)
+
 ---
 
 ## ✨ Core Features
