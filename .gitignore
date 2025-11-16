@@ -98,6 +98,11 @@ StyleCopReport.xml
 *.svclog
 *.scc
 
+# Ignore large native DLLs for ONNX Runtime/DirectML (AI dependencies)
+onnxruntime.dll
+DirectML.dll
+DirectML.Debug.dll
+
 # Chutzpah Test files
 _Chutzpah*
 
