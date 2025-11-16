@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
-using System.Diagnostics; // Added for potential logging
 
 namespace ParadiseHelper.Tools
 {
@@ -32,10 +31,12 @@ namespace ParadiseHelper.Tools
         public RegisterHotKeyHandler(nint handle, Keys key, KeyModifiers modifiers, Action onHotKey)
         {
             _handle = handle;
+            
             // Generate a unique hotkey ID (using hash code truncated to 16 bits).
             // NOTE: While GetHashCode is easy, in a production app, a more robust ID generation might be needed
             // to prevent potential conflicts, such as using Interlocked.Increment on a static counter.
             _hotkeyId = GetHashCode() & 0xFFFF;
+            
             _onHotKey = onHotKey;
 
             // Attempt to register the hotkey with Windows.
@@ -63,6 +64,7 @@ namespace ParadiseHelper.Tools
         public void Dispose()
         {
             UnregisterHotKey(_handle, _hotkeyId);
+            
             // Suppress finalization, as cleanup has been done.
             GC.SuppressFinalize(this);
         }
