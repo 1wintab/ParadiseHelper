@@ -9,8 +9,7 @@
 ![ai-bot](images/ai-bot/preview-ai-bot-testing.png)
 
 **⬇️ Direct Download Link for v1.0.0 (Installer ZIP):**
-
-# [Click Here to Download ParadiseHelper-1.0.0-x64-Setup.zip](https://github.com/1wintab/ParadiseHelper/releases/download/v1.0.0/ParadiseHelper-1.0.0-x64-Setup.zip)
+[Click Here to Download ParadiseHelper-1.0.0-x64-Setup.zip](https://github.com/1wintab/ParadiseHelper/releases/download/v1.0.0/ParadiseHelper-1.0.0-x64-Setup.zip)
 
 ---
 
@@ -39,7 +38,7 @@ Before running Paradise Helper, make sure you have:
 ## 📦 Installation
 
 1. Go to the **[Latest Release Page](https://github.com/1wintab/ParadiseHelper/releases/tag/v1.0.0)**.
-2. Download the installer archive: (**`ParadiseHelper-1.0.0-x64-Setup.zip`**](https://github.com/1wintab/ParadiseHelper/releases/download/v1.0.0/ParadiseHelper-1.0.0-x64-Setup.zip) (from Assets).  
+2. Download the installer archive: [**`ParadiseHelper-1.0.0-x64-Setup.zip`**](https://github.com/1wintab/ParadiseHelper/releases/download/v1.0.0/ParadiseHelper-1.0.0-x64-Setup.zip) (from Assets).  
 3. Extract the ZIP file and run the installer (`.exe`).  
 4. Right-click **Paradise Helper.exe** → **Run as administrator** (after installation).
 
